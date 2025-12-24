@@ -9,7 +9,7 @@ A Model Context Protocol (MCP) server for interacting with Trading212's API. Thi
 
 The Model Context Protocol (MCP) is a standardized way for AI models to interact with external tools and services. It provides a secure and controlled environment where AI can access specific functionalities while maintaining proper boundaries and security measures.
 
-See documentation here: https://modelcontextprotocol.io
+See documentation here: <https://modelcontextprotocol.io>
 
 ## Features
 
@@ -22,6 +22,7 @@ See documentation here: https://modelcontextprotocol.io
 ## Quick Start
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - A Trading212 API key ([get yours here](#getting-your-trading212-api-key))
 - Claude Desktop or another MCP-compatible client
@@ -30,7 +31,8 @@ See documentation here: https://modelcontextprotocol.io
 
 Add this to your Claude Desktop configuration file:
 
-**Option 1: No installation required (recommended)**
+#### Option 1: No installation required (recommended)
+
 ```json
 {
   "mcpServers": {
@@ -45,10 +47,12 @@ Add this to your Claude Desktop configuration file:
 }
 ```
 
-**Option 2: Global installation**
+#### Option 2: Global installation
+
 ```bash
 npm install -g t212-mcp-server
 ```
+
 ```json
 {
   "mcpServers": {
@@ -62,7 +66,8 @@ npm install -g t212-mcp-server
 }
 ```
 
-### How to access the config file:
+### How to access the config file
+
 1. Open Claude Desktop Settings
 2. Go to the **Developer** tab
 3. Click **"Edit Config"**
@@ -74,7 +79,7 @@ For detailed configuration instructions, see the [official MCP documentation](ht
 ## Getting your Trading212 API Key
 
 1. Log into your Trading212 account
-2. Navigate to Settings → API 
+2. Navigate to Settings → API
 3. Generate a new API key
 4. Copy the key and use it in your configuration
 
