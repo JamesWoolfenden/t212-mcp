@@ -73,7 +73,7 @@ async function fetchResource<T>(resourcePath: string): Promise<T | null> {
   const headers = {
     "User-Agent": USER_AGENT,
     "Accept": "application/json",
-    "Authorization": API_KEY
+    "Authorization": `Basic ${API_KEY}`
   };
 
   try {

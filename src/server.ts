@@ -14,13 +14,10 @@ export class T212Mcp {
   private server: McpServer;
 
   constructor() {
+    // Updated initialization for MCP SDK v1.8.0
     this.server = new McpServer({
       name: SERVER_NAME,
       version: "1.0.0",
-      capabilities: {
-        resources: {},
-        tools: {},
-      },
     });
 
     this.server.tool(
@@ -63,4 +60,3 @@ export class T212Mcp {
   }
 
 }
-

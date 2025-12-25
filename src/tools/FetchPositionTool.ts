@@ -5,21 +5,21 @@ import { MCPTool, mapToolResponse } from "./MCPTool.js";
 import type {Position} from "../models/Position.js"
 import { fetchPosition } from "../api/api.js"
 
-type ArgsType = {
-  ticker: z.ZodString
+// Enhanced validation schema for ticker
+const tickerSchema = z.string()
+  .min(1, "Ticker symbol cannot be empty")
+  .max(20, "Ticker symbol is too long")
+  .regex(
+    /^[A-Z0-9][A-Z0-9.-]*$/i,
+    "Ticker must contain only letters, numbers, dots, and hyphens"
+  )
+  .transform(val => val.trim().toUpperCase()); // Normalize to uppercase
+
+const args = {
+  ticker: tickerSchema
 }
 
-// Enhanced validation schema for ticker
-const args: ArgsType = {
-  ticker: z.string()
-    .min(1, "Ticker symbol cannot be empty")
-    .max(20, "Ticker symbol is too long")
-    .regex(
-      /^[A-Z0-9][A-Z0-9.-]*$/i,
-      "Ticker must contain only letters, numbers, dots, and hyphens"
-    )
-    .transform(val => val.trim().toUpperCase()) // Normalize to uppercase
-}
+type ArgsType = typeof args;
 
 const callback: ToolCallback<ArgsType> = async ({ticker}) => {
   try {
