@@ -28,7 +28,7 @@ const callback: ToolCallback = async () => {
 
 export const FetchOpenPositionsTool: MCPTool = {
   name: "fetch-open-positions",
-  description: "Fetch all my investents open positions",
+  description: "Fetch all my investments open positions",
   args: undefined,
   callBack: callback
 }

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "t212-mcp": {
+      "command": "npx",
+      "args": ["t212-mcp-server"],
+      "env": {
+        "T212_API_KEY": "your-trading212-api-key",
+        "T212_CLIENT_SECRET": "your-trading212-client-secret"
+      }
+    }
+  }
+}

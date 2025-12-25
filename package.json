@@ -14,7 +14,9 @@
   "files": [
     "build/**/*",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    ".env.example",
+    "claude-desktop-config.example.json"
   ],
   "keywords": [
     "mcp",

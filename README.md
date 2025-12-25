@@ -24,10 +24,12 @@ See documentation here: <https://modelcontextprotocol.io>
 ### Prerequisites
 
 - Node.js (v16 or higher)
-- A Trading212 API key ([get yours here](#getting-your-trading212-api-key))
+- Trading212 API credentials: API key and Client Secret ([get yours here](#getting-your-trading212-api-credentials))
 - Claude Desktop or another MCP-compatible client
 
 ### Configuration for Claude Desktop
+
+See `claude-desktop-config.example.json` for a complete example.
 
 Add this to your Claude Desktop configuration file:
 
@@ -40,7 +42,8 @@ Add this to your Claude Desktop configuration file:
       "command": "npx",
       "args": ["t212-mcp-server"],
       "env": {
-        "T212_API_KEY": "your-trading212-api-key"
+        "T212_API_KEY": "your-trading212-api-key",
+        "T212_CLIENT_SECRET": "your-trading212-client-secret"
       }
     }
   }
@@ -59,7 +62,8 @@ npm install -g t212-mcp-server
     "t212-mcp": {
       "command": "t212-mcp-server",
       "env": {
-        "T212_API_KEY": "your-trading212-api-key"
+        "T212_API_KEY": "your-trading212-api-key",
+        "T212_CLIENT_SECRET": "your-trading212-client-secret"
       }
     }
   }
@@ -76,12 +80,21 @@ npm install -g t212-mcp-server
 
 For detailed configuration instructions, see the [official MCP documentation](https://modelcontextprotocol.io/quickstart/user).
 
-## Getting your Trading212 API Key
+## Getting your Trading212 API Credentials
 
 1. Log into your Trading212 account
 2. Navigate to Settings → API
-3. Generate a new API key
-4. Copy the key and use it in your configuration
+3. Generate new API credentials
+4. Copy both the API Key and Client Secret
+5. Use both values in your configuration (you need both to authenticate)
+
+### Local Development
+
+For local development, you can use a `.env` file:
+
+1. Copy `.env.example` to `.env`
+2. Fill in your actual API credentials
+3. The `.env` file is git-ignored to protect your credentials
 
 ## Available Tools
 
@@ -97,10 +110,11 @@ After configuring, restart Claude Desktop and you should see the T212 tools avai
 
 ## Security Notes
 
-- ⚠️ Never commit your Trading212 API key to version control
+- ⚠️ Never commit your Trading212 API credentials (API key or Client Secret) to version control
 - 🔒 Keep your MCP configuration file secure
-- 🔄 Regularly rotate your API keys
+- 🔄 Regularly rotate your API credentials
 - 📝 This server currently provides read-only access to your Trading212 account
+- 🔐 Both API Key and Client Secret are required for authentication
 
 ## License
 

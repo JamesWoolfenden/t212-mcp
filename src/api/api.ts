@@ -4,6 +4,7 @@ import type {AccountCash, AccountMetadata} from "../models/Account.js"
 
 const API_BASE = "https://live.trading212.com/api/v0"
 const API_KEY = process.env.T212_API_KEY ?? ""
+const CLIENT_SECRET = process.env.T212_CLIENT_SECRET ?? ""
 
 // Get version from package.json for better tracking
 const USER_AGENT = "T212-mcp/1.0"
@@ -13,17 +14,25 @@ let lastRequestTime = 0;
 const MIN_REQUEST_INTERVAL = 100; // 100ms between requests (max 10 req/sec)
 
 /**
- * Validates that the API key is properly configured
- * @throws {Error} if API key is missing or invalid
+ * Validates that the API credentials are properly configured
+ * @throws {Error} if API key or client secret is missing or invalid
  */
 function validateApiKey(): void {
   if (!API_KEY || API_KEY.trim().length === 0) {
     throw new Error("No API key found in T212_API_KEY environment variable. Please set it in your configuration.");
   }
-  
+
+  if (!CLIENT_SECRET || CLIENT_SECRET.trim().length === 0) {
+    throw new Error("No client secret found in T212_CLIENT_SECRET environment variable. Please set it in your configuration.");
+  }
+
   // Basic format check - Trading212 API keys are typically alphanumeric
   if (!/^[a-zA-Z0-9_-]+$/.test(API_KEY)) {
     throw new Error("API key contains invalid characters. Please check your T212_API_KEY configuration.");
+  }
+
+  if (!/^[a-zA-Z0-9_-]+$/.test(CLIENT_SECRET)) {
+    throw new Error("Client secret contains invalid characters. Please check your T212_CLIENT_SECRET configuration.");
   }
 }
 
@@ -64,16 +73,19 @@ function validateResponse(data: unknown, resourcePath: string): boolean {
  * Implements rate limiting, error handling, and response validation
  */
 async function fetchResource<T>(resourcePath: string): Promise<T | null> {
-  // Validate API key on first use
+  // Validate API credentials on first use
   validateApiKey();
-  
+
   // Enforce rate limiting
   await enforceRateLimit();
+
+  // Create Basic auth header with base64 encoded credentials
+  const credentials = Buffer.from(`${API_KEY}:${CLIENT_SECRET}`).toString('base64');
 
   const headers = {
     "User-Agent": USER_AGENT,
     "Accept": "application/json",
-    "Authorization": `Basic ${API_KEY}`
+    "Authorization": `Basic ${credentials}`
   };
 
   try {
